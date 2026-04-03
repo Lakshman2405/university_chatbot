@@ -1,9 +1,8 @@
 langchain==0.2.14
 langchain-community==0.2.12
-langchain-core==0.2.32
+langchain-openai==0.1.22
 
 pydantic==2.7.4
-pydantic-core==2.18.4
 
 faiss-cpu
 sentence-transformers
@@ -12,3 +11,4 @@ torch
 pypdf
 streamlit
 tiktoken
+python-dotenv
