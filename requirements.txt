@@ -1,9 +1,14 @@
 langchain==0.2.14
 langchain-community==0.2.12
-pypdf
+langchain-core==0.2.32
+
+pydantic==2.7.4
+pydantic-core==2.18.4
+
 faiss-cpu
 sentence-transformers
 transformers
-accelerate
+torch
+pypdf
 streamlit
-python-dotenv
+tiktoken
