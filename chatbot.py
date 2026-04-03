@@ -1,6 +1,5 @@
 import os
-#from langchain_community.document_loaders import PyPDFLoader
-from pypdf import PdfReader
+from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain.embeddings import HuggingFaceEmbeddings
@@ -13,16 +12,10 @@ from transformers import pipeline
 # Load documents
 def load_documents():
     docs = []
-
     for file in os.listdir("data"):
         if file.endswith(".pdf"):
-            reader = PdfReader(os.path.join("data", file))
-
-            for page in reader.pages:
-                text = page.extract_text()
-                if text:
-                    docs.append({"page_content": text})
-
+            loader = PyPDFLoader(os.path.join("data", file))
+            docs.extend(loader.load())
     return docs
 
 
@@ -32,8 +25,7 @@ def create_vector_db(docs):
         chunk_size=1000,
         chunk_overlap=200
     )
-    texts = [doc["page_content"] for doc in docs]
-    chunks = splitter.create_documents(texts)
+    chunks = splitter.split_documents(docs)
 
     embeddings = HuggingFaceEmbeddings(
         model_name="all-MiniLM-L6-v2"
